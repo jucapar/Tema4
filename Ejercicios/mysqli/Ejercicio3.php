@@ -14,7 +14,7 @@
 		/*
         Autor: Juan Carlos Pastor Regueras
             Formulario para añadir un departamento a la tabla Departamento con validación de entrada y control de errores.
-        Fecha de modificacion: 28-10-2017
+			Fecha de modificacion: 28-10-2017
         */
     
     // Establecemos una nueva conexion
