@@ -80,7 +80,8 @@
 		<?PHP
 		}
 		else{
-			//Creamos la consulta
+			
+            //Creamos la consulta
 			$consulta="SELECT * FROM Departamento WHERE DescDepartamento LIKE CONCAT('%',?,'%')";
             //Preparamos la consulta
             $sentencia=$db->prepare($consulta);
@@ -89,28 +90,20 @@
             //Ejecutamos la consulta
             $sentencia-> execute();
             //Obtenemos los resultados
-             $resultado=$sentencia->get_result();
+            $resultado=$sentencia->get_result();
             //Guardamos los resultados obtenidos como un array asociativo
             $departamentos=$resultado->fetch_all(MYSQLI_ASSOC);
-        
             //Mostramos los resultados por pantalla   
             for($i = 0; $i < count($departamentos);$i++){
-            foreach($departamentos[$i] as $indice =>$valor){
-                echo ("$indice:$valor<br/>");
+                foreach($departamentos[$i] as $indice =>$valor){
+                    echo ("$indice:$valor<br/>");
                 }
-                echo("<br />");
+                    echo("<br />");
             }
             //Cerramos la sentencia*/
             $sentencia->close();
 		}
         //Cerramos la conexion
         $db->close();
-    
-    
-    
-    
-    
     }
-
-
 ?>
