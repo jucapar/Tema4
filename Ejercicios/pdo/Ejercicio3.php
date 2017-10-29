@@ -143,15 +143,6 @@
 				echo("Error al insertar el registro");
 			}
 			
-			
-			/*$n = $sentencia->rowCount();
-			if($n == 1){
-				echo ("Departamento insertado con exito");
-			}
-			else{
-				echo ("Error al insertar el departamento");
-			}*/
-			
 		}
 		unset($db);
 	
