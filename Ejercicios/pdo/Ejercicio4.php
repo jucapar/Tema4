@@ -8,14 +8,18 @@
 		Fecha de modificacion: 29-10-2017
     */
 
-    $db = new mysqli("192.168.1.102","usuarioDBdepartamentos","paso","DAW202DBdepartamentos");
-    
-    //Comprobamos si ha habido algun error de conexion, en tal caso mostramos el codigo de error
-    if($db->connect_errno){
-        echo "Error al conectarse a la base de datos<br/>";
-        echo "Codigo de error:" .$db->connect_errno;
-    }
-    else{
+   $datosConexion="mysql:host=192.168.1.102;dbname=DAW202DBdepartamentos";
+	try{
+		//Creamos la conexion a la base de datos
+		$db = new PDO($datosConexion,"usuarioDBdepartamentos","paso");
+		//Definición de los atributos para lanzar una excepcion si se produce un error
+		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
+			
+	}catch(PDOException $PDOE){
+		//Capturamos la excepcion en caso de que se produzca un error,mostramos el mensaje de error y deshacemos la conexion
+		echo($PDOE->getMessage());
+		unset($db);
+	}
         
         //Incluimos nuestra libreria de validacion
 		include "../LibreriaValidacionFormularios.php";
@@ -80,30 +84,30 @@
 		<?PHP
 		}
 		else{
+			//Creamos la consulta
 			
-            //Creamos la consulta
-			$consulta="SELECT * FROM Departamento WHERE DescDepartamento LIKE CONCAT('%',?,'%')";
-            //Preparamos la consulta
-            $sentencia=$db->prepare($consulta);
-            //Inyectamos los parametros del insert en el query
-            $sentencia->bind_param("s",$DescDepartamento);
-            //Ejecutamos la consulta
-            $sentencia-> execute();
-            //Obtenemos los resultados
-            $resultado=$sentencia->get_result();
-            //Guardamos los resultados obtenidos como un array asociativo
-            $departamentos=$resultado->fetch_all(MYSQLI_ASSOC);
-            //Mostramos los resultados por pantalla   
-            for($i = 0; $i < count($departamentos);$i++){
-                foreach($departamentos[$i] as $indice =>$valor){
-                    echo ("$indice:$valor<br/>");
-                }
-                    echo("<br />");
-            }
-            //Cerramos la sentencia*/
-            $sentencia->close();
+			$consulta="SELECT * FROM Departamento WHERE DescDepartamento LIKE CONCAT('%',:DescDepartamento,'%')";
+			//Preparamos la sentencia
+			$sentencia=$db->prepare($consulta);
+			//Inyectamos los parametros  en el query
+			$sentencia->bindParam(":DescDepartamento",$DescDepartamento);
+			//La ejecutamos
+			$sentencia->execute();
+			//Establecemos la obtencion de los resultados como un array asociativo
+			$sentencia->setFetchMode(PDO::FETCH_ASSOC);
+			//Guardamos todos los resultados obtenidos
+			$departamentos = $sentencia->fetchAll();
+			
+			//Mostramos los datos por pantalla
+			for($i = 0; $i < count($departamentos);$i++){
+				foreach($departamentos[$i] as $indice =>$valor){
+					echo ("$indice:$valor<br/>");
+				}
+               echo("<br />");
+			}
+      
 		}
         //Cerramos la conexion
-        $db->close();
-    }
+        unset($db);
+    
 ?>
