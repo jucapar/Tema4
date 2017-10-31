@@ -7,7 +7,8 @@
     */
     
     // Establecemos una nueva conexion
-    $db = new mysqli("192.168.1.102","usuarioDBdepartamentos","paso","DAW202DBdepartamentos");
+	include "../config.php";
+    $db = new mysqli($host,$user,$password,$database);
     
     //Comprobamos si ha habido algun error de conexion, en tal caso mostramos el codigo de error
     if($db->connect_errno){
@@ -25,20 +26,22 @@
         $sentencia->execute();
         //Obtenemos los resultados
         $resultado=$sentencia->get_result();
-        //Guardamos los resultados obtenidos como un array asociativo
-        $departamentos=$resultado->fetch_all(MYSQLI_ASSOC);
+        
         //Guardamos en numero de registros obtenidos
         $numRegistros = $resultado->num_rows;
         //Mostramos los datos por pantalla
         echo "Numero de registros $numRegistros<br/>";
         
-        for($i = 0; $i < count($departamentos);$i++){
-            foreach($departamentos[$i] as $indice =>$valor){
-                echo ("$indice:$valor<br/>");
-                }
-                echo("<br />");
-        }
-        
+		//Guardamos los resultados obtenidos como un objeto
+        $departamento=$resultado->fetch_object();
+		
+		while($departamento != null){
+			echo "Codigo Departamento:".$departamento->CodDepartamento."<br />";
+			echo "Descripcion Departamento:".$departamento->DescDepartamento."<br />";
+			echo "<br />";
+			$departamento=$resultado->fetch_object();
+		}
+		
     }
     //Cerramos la conexion
     $db->close();

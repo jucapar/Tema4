@@ -7,34 +7,29 @@
     */
 
     //Información de la base de datos. Host y nombre de la BD
-    $datosConexion="mysql:host=192.168.1.102;dbname=DAW202DBdepartamentos";
+	include "../config.php";
+   
     try{
         //Creamos la conexion a la base de datos
-        $db = new PDO($datosConexion,"usuarioDBdepartamentos","paso");
+        $db = new PDO($datosConexion,$user,$password);
         //Definición de los atributos para lanzar una excepcion si se produce un error
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
-        //Si no se produce ningun error mostramos el mensaje de confirmacion
+        //Si no se produce ningun error continuamos
         //Creamos la consulta
         $consulta = "SELECT * FROM Departamento";
         //Preparamos la consulta
         $sentencia = $db->prepare($consulta);
         //La ejecutamos
         $sentencia->execute();
-        //Establecemos la obtencion de los resultados como un array asociativo
-        $sentencia->setFetchMode(PDO::FETCH_ASSOC);
         //Guardamos el numero de registros obtenidos
         $numRegistros = $sentencia->rowCount();
-        //Guardamos todos los resultados obtenidos
-        $departamentos = $sentencia->fetchAll();
+       
+		while ($departamento = $sentencia->fetch(PDO::FETCH_OBJ)) {//Mientras haya resultados, se muestran formateados. FETCH avanza el puntero
+			echo "Codigo Departamento:".$departamento->CodDepartamento."<br />";
+			echo "Descripcion Departamento:".$departamento->DescDepartamento."<br />";
+			echo "<br />";
+		}
     
-        //Mostramos los datos por pantalla
-         echo "Numero de registros $numRegistros<br/>";
-        for($i = 0; $i < count($departamentos);$i++){
-        foreach($departamentos[$i] as $indice =>$valor){
-            echo ("$indice:$valor<br/>");
-            }
-               echo("<br />");
-        }
         //Cerramos la conexion
         unset($db);
        
