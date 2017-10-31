@@ -7,7 +7,8 @@
     */
     
     // Establecemos una nueva conexion
-    $db = new mysqli("192.168.1.102","usuarioDBdepartamentos","paso","DAW202DBdepartamentos");
+    include "../config.php";
+    $db = new mysqli($host,$user,$password,$database);
     
     //Comprobamos si ha habido algun error de conexion, en tal caso mostramos el codigo de error
     if($db->connect_errno){

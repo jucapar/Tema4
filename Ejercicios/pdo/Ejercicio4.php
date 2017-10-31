@@ -8,10 +8,10 @@
 		Fecha de modificacion: 29-10-2017
     */
 
-   $datosConexion="mysql:host=192.168.1.102;dbname=DAW202DBdepartamentos";
+    include "../config.php";
 	try{
 		//Creamos la conexion a la base de datos
-		$db = new PDO($datosConexion,"usuarioDBdepartamentos","paso");
+		$db = new PDO($datosConexion,$user,$password);
 		//Definición de los atributos para lanzar una excepcion si se produce un error
 		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
 			
