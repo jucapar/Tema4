@@ -14,7 +14,6 @@
         $db = new PDO($datosConexion,$user,$password);
         //Definición de los atributos para lanzar una excepcion si se produce un error
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
-        //Si no se produce ningun error mostramos el mensaje de confirmacion
         //Creamos la consulta
         $consulta = "SELECT * FROM Departamento";
         //Preparamos la consulta

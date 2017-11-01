@@ -93,18 +93,11 @@
 			$sentencia->bindParam(":DescDepartamento",$DescDepartamento);
 			//La ejecutamos
 			$sentencia->execute();
-			//Establecemos la obtencion de los resultados como un array asociativo
-			$sentencia->setFetchMode(PDO::FETCH_ASSOC);
-			//Guardamos todos los resultados obtenidos
-			$departamentos = $sentencia->fetchAll();
-			
-			//Mostramos los datos por pantalla
-			for($i = 0; $i < count($departamentos);$i++){
-				foreach($departamentos[$i] as $indice =>$valor){
-					echo ("$indice:$valor<br/>");
-				}
-               echo("<br />");
-			}
+			while ($departamento = $sentencia->fetch(PDO::FETCH_OBJ)) {//Mientras haya resultados, se muestran formateados. FETCH avanza el puntero
+				echo "Codigo Departamento:".$departamento->CodDepartamento."<br />";
+				echo "Descripcion Departamento:".$departamento->DescDepartamento."<br />";
+				echo "<br />";
+			}	
       
 		}
         //Cerramos la conexion

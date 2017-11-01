@@ -92,17 +92,17 @@
             $sentencia-> execute();
             //Obtenemos los resultados
             $resultado=$sentencia->get_result();
-            //Guardamos los resultados obtenidos como un array asociativo
-            $departamentos=$resultado->fetch_all(MYSQLI_ASSOC);
-            //Mostramos los resultados por pantalla   
-            for($i = 0; $i < count($departamentos);$i++){
-                foreach($departamentos[$i] as $indice =>$valor){
-                    echo ("$indice:$valor<br/>");
-                }
-                    echo("<br />");
-            }
-            //Cerramos la sentencia*/
-            $sentencia->close();
+            //Guardamos los resultados obtenidos como un objeto
+			$departamento=$resultado->fetch_object();
+		
+			while($departamento != null){//Mientras haya filas mostramos por pantalla y avanzamos el fetch
+				echo "Codigo Departamento:".$departamento->CodDepartamento."<br />";
+				echo "Descripcion Departamento:".$departamento->DescDepartamento."<br />";
+				echo "<br />";
+				$departamento=$resultado->fetch_object();
+			}
+            
+			$sentencia->close();
 		}
         //Cerramos la conexion
         $db->close();

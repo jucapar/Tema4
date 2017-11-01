@@ -35,7 +35,7 @@
 		//Guardamos los resultados obtenidos como un objeto
         $departamento=$resultado->fetch_object();
 		
-		while($departamento != null){
+		while($departamento != null){//Mientras haya filas mostramos por pantalla y avanzamos el fetch
 			echo "Codigo Departamento:".$departamento->CodDepartamento."<br />";
 			echo "Descripcion Departamento:".$departamento->DescDepartamento."<br />";
 			echo "<br />";
