@@ -2,7 +2,8 @@
 
     /*
         Autor: Juan Carlos Pastor Regueras
-        Pagina web que añade tres registros a nuestra tabla Departamento utilizando tres instrucciones insert y una transacción, de tal forma que se añadan los tres registros o no se añada ninguno
+       Pagina web que cargue registros en la tabla Departamento desde un array departamentosnuevos 
+		utilizando una consulta preparada.
         Fecha de modificacion: 28-10-2017
     */
     
