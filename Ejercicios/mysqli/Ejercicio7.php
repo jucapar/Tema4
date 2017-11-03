@@ -45,14 +45,16 @@
 		<?PHP
 		}
 		else{
-			
+			//Variable para contar el numero de registros que se han ejecutado correctamente
 			$cuenta = 0;
 			$consulta = "INSERT INTO Departamento (CodDepartamento,DescDepartamento) VALUES (?,?)";
 			//Preparamos la consulta
-             $sentencia=$db->prepare($consulta);
-            //Inyectamos los parametros del insert en el query
+            $sentencia=$db->prepare($consulta);
+            //Recorremos nuestro fichero XML 
 			foreach($xml->Departamento as $departamento){
+				//Inyectamos los parametros del insert en el query
 				$sentencia->bind_param("ss",$departamento->CodDepartamento,$departamento->DescDepartamento);
+				//Si la ejecucion es correcta incrementamos el numero de registros correctos
 				if($sentencia->execute()){
 					$cuenta++;
 				}
