@@ -127,15 +127,11 @@
 		}
 		else{
 			//Creamos la consulta
-			$consulta="INSERT INTO Departamento (CodDepartamento,DescDepartamento) VALUES(:CodDepartamento,:DescDepartamento)";
-			//Preparamos la sentencia
-			$sentencia=$db->prepare($consulta);
-			//Inyectamos los parametros del insert en el query
-			$sentencia->bindParam(":CodDepartamento",$departamento['CodDepartamento']);
-			$sentencia->bindParam(":DescDepartamento",$departamento['DescDepartamento']);
+			$consulta="INSERT INTO Departamento (CodDepartamento,DescDepartamento) VALUES (\"".$departamento['CodDepartamento']."\",\"".$departamento['DescDepartamento']."\")";
+			
 			//Ejecutamos la consulta
 			try{
-				$sentencia-> execute();
+				$db->query($consulta);
 				echo "Registro insertado con exito";
 			}
 			catch(PDOException $PDOE){

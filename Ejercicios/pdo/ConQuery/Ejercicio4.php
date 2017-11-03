@@ -86,14 +86,11 @@
 		else{
 			//Creamos la consulta
 			
-			$consulta="SELECT * FROM Departamento WHERE DescDepartamento LIKE CONCAT('%',:DescDepartamento,'%')";
+			$consulta="SELECT * FROM Departamento WHERE DescDepartamento LIKE CONCAT('%',\"".$DescDepartamento."\",'%')";
 			//Preparamos la sentencia
-			$sentencia=$db->prepare($consulta);
-			//Inyectamos los parametros  en el query
-			$sentencia->bindParam(":DescDepartamento",$DescDepartamento);
-			//La ejecutamos
-			$sentencia->execute();
-			while ($departamento = $sentencia->fetch(PDO::FETCH_OBJ)) {//Mientras haya resultados, se muestran formateados. FETCH avanza el puntero
+			$resultado=$db->query($consulta);
+			
+			while ($departamento = $resultado->fetch(PDO::FETCH_OBJ)) {//Mientras haya resultados, se muestran formateados. FETCH avanza el puntero
 				echo "Codigo Departamento:".$departamento->CodDepartamento."<br />";
 				echo "Descripcion Departamento:".$departamento->DescDepartamento."<br />";
 				echo "<br />";

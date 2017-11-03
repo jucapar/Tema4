@@ -27,11 +27,11 @@
 	    }
 	
 	   //Añadimos los datos
-	   $departamentos[0]['CodDepartamento'] = "131";
+	   $departamentos[0]['CodDepartamento'] = "200";
 	   $departamentos[0]['DescDepartamento'] = "Lengua";
-	   $departamentos[1]['CodDepartamento'] = "141";
+	   $departamentos[1]['CodDepartamento'] = "201";
 	   $departamentos[1]['DescDepartamento'] = "Musica";
-	   $departamentos[2]['CodDepartamento'] = "1511";
+	   $departamentos[2]['CodDepartamento'] = "202";
 	   $departamentos[2]['DescDepartamento'] = "Educacion fisica";
 	   
 		//Creamos la consulta
@@ -46,8 +46,8 @@
 			//Ejecutamos la consulta
 			$sentencia-> execute();	
 			//Vamos acumulando el numero de filas afectadas en $n
-			$n += $numRegistros = $sentencia->rowCount();
-			echo $n."</br>";
+			$n += $sentencia->rowCount();
+			
 		}
 		
 		//Comprobamos el numero de filas afectadas, si coincide con el numero de inserts realizado el proceso ha ido bien

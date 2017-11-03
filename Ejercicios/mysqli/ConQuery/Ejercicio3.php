@@ -123,12 +123,12 @@
 		<?PHP
 		}
 		else{
-				//Creamos la consulta
-				$consulta="INSERT INTO Departamento (CodDepartamento,DescDepartamento) VALUES (\"".$departamento['CodDepartamento']."\",\"".$departamento['DescDepartamento']."\")";
-        //Ejecutamos la consulta
-				echo $consulta;
-        if($db->query($consulta)){
-          echo ("Departamento insertado con exito");
+			//Creamos la consulta
+			$consulta="INSERT INTO Departamento (CodDepartamento,DescDepartamento) VALUES (\"".$departamento['CodDepartamento']."\",\"".$departamento['DescDepartamento']."\")";
+        	//Ejecutamos la consulta
+				
+        	if($db->query($consulta)){
+        	  echo ("Departamento insertado con exito");
 				}
 				else{
 					echo ("Error al insertar el departamento");
