@@ -3,9 +3,9 @@
 
     /*
         Autor: Juan Carlos Pastor Regueras
-        Formulario de búsqueda de departamentos por descripción (por una parte del campo 
-        DescDepartamento)
-		Fecha de modificacion: 29-10-2017
+        Página web que toma datos (código y descripción) de un fichero xml y los añade a la tabla 
+		Departamento de nuestra base de datos. (IMPORTAR
+		Fecha de modificacion: 3-11-2017
     */
 
     include "../config.php";
