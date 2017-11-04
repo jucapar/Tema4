@@ -2,6 +2,7 @@
 # Created by https://www.gitignore.io/api/netbeans
 
 ### NetBeans ###
+nbproject/
 nbproject/private/
 nbproject/project.properties
 nbproject/project.xml
