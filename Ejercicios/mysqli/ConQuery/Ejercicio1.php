@@ -7,8 +7,8 @@
  */
 
 // Establecemos una nueva conexion
-include "../config.php";
-$db = new mysqli($host, $user, $password, $database);
+include "../../config.php";
+$db = new mysqli(HOST,USER,PASSWORD,DATABASE);
 
 //Comprobamos si ha habido algun error de conexion, en tal caso mostramos el codigo de error
 if ($db->connect_errno) {
@@ -17,7 +17,7 @@ if ($db->connect_errno) {
     echo "<br />Descripcion del error:" . $db->connect_error;
 } else {
     //Si no ha habido errores lo notificamos al usuario
-    echo "Conexion establecida";
+    echo "Conexion establecida<br />";
     echo $db->host_info, "<br/>";
     echo $db->server_info, "<br/>";
     echo "Version servidor ", $db->server_version, "<br/>";

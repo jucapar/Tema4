@@ -6,20 +6,16 @@
   Fecha de modificacion: 29-10-2017
  */
 
-include "../config.php";
+include "../../config.php";
 try {
     //Creamos la conexion a la base de datos
-    $db = new PDO($datosConexion, $user, $password);
+    $db = new PDO(DATOSCONEXION, USER, PASSWORD);
     //Definición de los atributos para lanzar una excepcion si se produce un error
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $PDOE) {
-    //Capturamos la excepcion en caso de que se produzca un error,mostramos el mensaje de error y deshacemos la conexion
-    echo($PDOE->getMessage());
-    unset($db);
-}
+
 
 //Incluimos nuestra libreria de validacion
-include "../LibreriaValidacionFormularios.php";
+include "../../LibreriaValidacionFormularios.php";
 
 // Constantes para los valores maximos y minimos
 define("MIN", 1);
@@ -87,6 +83,12 @@ if (!filter_has_var(INPUT_POST, 'enviar') || $error) {
         echo "Descripcion Departamento:" . $departamento->DescDepartamento . "<br />";
         echo "<br />";
     }
+}
+} catch (PDOException $PdoE) {
+    //Capturamos la excepcion en caso de que se produzca un error,mostramos el mensaje de error y deshacemos la conexion
+    echo($PdoE->getMessage());
+    unset($db);
+
 }
 //Cerramos la conexion
 unset($db);

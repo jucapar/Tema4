@@ -7,22 +7,14 @@
 
 
 //Comprobamos si ha habido algun error de conexion, en tal caso mostramos el codigo de error
-include "../config.php";
+include "../../config.php";
 
 try {
     //Creamos la conexion a la base de datos
-    $db = new PDO($datosConexion, $user, $password);
+    $db = new PDO(DATOSCONEXION, USER, PASSWORD);
     //Definición de los atributos para lanzar una excepcion si se produce un error
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    //Si no se produce ningun error mostramos el mensaje de confirmacion
-    echo ("Conexion establecida");
-} catch (PDOException $PDOE) {
-    //Capturamos la excepcion en caso de que se produzca un error,mostramos el mensaje de error y deshacemos la conexion
-    echo($PDOE->getMessage());
-    unset($db);
-}
-
-
+    //Si no se produce ningun error empezamos la ejecucion
     if (!filter_has_var(INPUT_POST, 'Exportar')) {
         ?>
         <html lang="en" xmlns="http://www.w3.org/1999/html">
@@ -38,22 +30,27 @@ try {
         <?PHP
     } else {
         $consulta = "SELECT * from Departamento"; //Consulta de todos los registros para generar la tabla
-        $resultado = $db->query($consulta); //Se almacena el resultado de la consulta
-        $registro = $resultado->fetch_object(); //Se obtiene   un  registro en el objeto (asociativo) y avanza el puntero por el conjunto de registros
+        $sentencia = $db->prepare($consulta); //Se almacena el resultado de la consulta
+		$resultado = $sentencia->execute();
         //Cotenido del fichero XML
         $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><Departamentos></Departamentos>'); //creación del XML y su nodo raiz
         header("Content-type: text/xml");
-        while ($registro != null) {//Mientras haya resultados, se imprimen. FETCH avanza el puntero
+       while ($registro = $sentencia->fetch(PDO::FETCH_OBJ)) {//Mientras haya resultados, se imprimen. FETCH avanza el puntero
             $departamento = $xml->addChild('Departamento'); //nuevo elemento hijo
             $departamento->addChild('CodDepartamento', $registro->CodDepartamento); //nuevo elemento hijo de departamento
             $departamento->addChild('DescDepartamento', $registro->DescDepartamento); //nuevo elemento hijo de departamento
-            $registro = $resultado->fetch_object(); //Avanza el puntero al siguiente registro
         }
         print($xml->asXML()); //Se imprime el xml creado
     }
     //Cerramos la conexion
-    $db->close();
+   unset($db);
+} catch (PDOException $PdoE) {
+    //Capturamos la excepcion en caso de que se produzca un error,mostramos el mensaje de error y deshacemos la conexion
+    echo($PdoE->getMessage());
+    unset($db);
+
 }
+
 ?>
 			
 

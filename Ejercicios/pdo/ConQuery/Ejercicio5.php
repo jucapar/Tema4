@@ -7,10 +7,10 @@
  */
 
 //Información de la base de datos. Host y nombre de la BD
-include "../config.php";
+include "../../config.php";
 try {
     //Creamos la conexion a la base de datos
-    $db = new PDO($datosConexion, $user, $password);
+    $db = new PDO(DATOSCONEXION, USER, PASSWORD);
     //Definición de los atributos para lanzar una excepcion si se produce un error
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     //Creamos una variable para el control del commit
@@ -40,9 +40,10 @@ try {
         $db->rollBack();
         print "Ha habido algún error.";
     }
-} catch (PDOException $PDOE) {
+} catch (PDOException $PdoE) {
     //Capturamos la excepcion en caso de que se produzca un error,mostramos el mensaje de error y deshacemos la conexion
-    echo($PDOE->getMessage());
+    echo($PdoE->getMessage());
     unset($db);
+
 }
 ?>

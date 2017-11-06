@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <Departamentos>
 	<Departamento>
-		<CodDepartamento>20</CodDepartamento>
+		<CodDepartamento>200</CodDepartamento>
 		<DescDepartamento>Musica</DescDepartamento>
 	</Departamento>
 	
 	<Departamento>
-		<CodDepartamento>21</CodDepartamento>
+		<CodDepartamento>210</CodDepartamento>
 		<DescDepartamento>Plastica</DescDepartamento>
 	</Departamento>
 </Departamentos>

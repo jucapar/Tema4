@@ -6,8 +6,8 @@
   Fecha de modificacion: 29-10-2017
  */
 
-include "../config.php";
-$db = new mysqli($host, $user, $password, $database);
+include "../../config.php";
+$db = new mysqli(HOST,USER,PASSWORD,DATABASE);
 
 //Comprobamos si ha habido algun error de conexion, en tal caso mostramos el codigo de error
 if ($db->connect_errno) {

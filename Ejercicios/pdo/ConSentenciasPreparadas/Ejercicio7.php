@@ -17,21 +17,13 @@
           Fecha de modificacion: 28-10-2017
          */
         //Información de la base de datos. Host y nombre de la BD
-        include "../config.php";
+        include "../../config.php";
         try {
             //Creamos la conexion a la base de datos
-            $db = new PDO($datosConexion, $user, $password);
+            $db = new PDO(DATOSCONEXION, USER, PASSWORD);
             //Definición de los atributos para lanzar una excepcion si se produce un error
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $PDOE) {
-            //Capturamos la excepcion en caso de que se produzca un error,mostramos el mensaje de error y deshacemos la conexion
-            echo($PDOE->getMessage());
-            unset($db);
-        }
-
-        //Incluimos nuestra libreria de validacion
-        include "../LibreriaValidacionFormularios.php";
-
+        
         $error = false;
         if (filter_has_var(INPUT_POST, 'Importar')) {//Si hemos pulsado el boton de Enviar
             $xml_file = $_FILES['fichero']['tmp_name']; //Archivo xml a cargar
@@ -53,26 +45,33 @@
                 <input type="submit" name="Importar" value="Importar">
             </form>
     <?PHP
-} else {
-    //Variable para contar el numero de registros que se han ejecutado correctamente
-    $cuenta = 0;
-    //Preparamos la consulta
-    $consulta = "INSERT INTO Departamento (CodDepartamento,DescDepartamento) VALUES (:CodDepartamento,:DescDepartamento)";
-    //Preparamos la sentencia
-    $sentencia = $db->prepare($consulta);
-    //Recorremos nuestro fichero XML 
-    foreach ($xml->Departamento as $departamento) {
-        //Inyectamos los parametros
-        $sentencia->bindParam(":CodDepartamento", $departamento->CodDepartamento);
-        $sentencia->bindParam(":DescDepartamento", $departamento->DescDepartamento);
-        //Si la ejecucion es correcta incrementamos el numero de registros correctos
-        if ($sentencia->execute()) {
-            $cuenta++;
-        }
-    }
-    echo ($cuenta . " registros insertados con exito");
+	} else {
+		//Variable para contar el numero de registros que se han ejecutado correctamente
+		$cuenta = 0;
+		//Preparamos la consulta
+		$consulta = "INSERT INTO Departamento (CodDepartamento,DescDepartamento) VALUES (:CodDepartamento,:DescDepartamento)";
+		//Preparamos la sentencia
+		$sentencia = $db->prepare($consulta);
+		//Recorremos nuestro fichero XML 
+		foreach ($xml->Departamento as $departamento) {
+			//Inyectamos los parametros
+			$sentencia->bindParam(":CodDepartamento", $departamento->CodDepartamento);
+			$sentencia->bindParam(":DescDepartamento", $departamento->DescDepartamento);
+			//Si la ejecucion es correcta incrementamos el numero de registros correctos
+			if ($sentencia->execute()) {
+				$cuenta++;
+			}
+		}
+		echo ($cuenta . " registros insertados con exito");
+	}
+	unset($db);
+
+	} catch (PDOException $PdoE) {
+    //Capturamos la excepcion en caso de que se produzca un error,mostramos el mensaje de error y deshacemos la conexion
+    echo($PdoE->getMessage());
+    unset($db);
+
 }
-unset($db);
 ?>
 
 

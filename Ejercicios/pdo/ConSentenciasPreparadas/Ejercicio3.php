@@ -17,20 +17,16 @@
           Fecha de modificacion: 28-10-2017
          */
         //Información de la base de datos. Host y nombre de la BD
-        include "../config.php";
+       include "../../config.php";
         try {
             //Creamos la conexion a la base de datos
-            $db = new PDO($datosConexion, $user, $password);
+            $db = new PDO(DATOSCONEXION, USER, PASSWORD);
             //Definición de los atributos para lanzar una excepcion si se produce un error
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $PDOE) {
-            //Capturamos la excepcion en caso de que se produzca un error,mostramos el mensaje de error y deshacemos la conexion
-            echo($PDOE->getMessage());
-            unset($db);
-        }
+        
 
         //Incluimos nuestra libreria de validacion
-        include "../LibreriaValidacionFormularios.php";
+        include "../../LibreriaValidacionFormularios.php";
 
         // Constantes para los valores maximos y minimos
         define("MIN", 1);
@@ -124,15 +120,19 @@
                 $sentencia->bindParam(":CodDepartamento", $departamento['CodDepartamento']);
                 $sentencia->bindParam(":DescDepartamento", $departamento['DescDepartamento']);
                 //Ejecutamos la consulta
-                try {
-                    $sentencia->execute();
-                    echo "Registro insertado con exito";
-                } catch (PDOException $PDOE) {
-                    //Capturamos la excepcion en caso de que se produzca un error,mostramos el mensaje de error y deshacemos la conexion
-                    echo("Error al insertar el registro");
-                }
-            }
-            unset($db);
+				 
+				if($sentencia->execute()){
+					echo "Registro insertado con exito";
+				}
+				
+				unset($db);
+			}
+		
+		} catch (PDOException $PdoE) {
+			//Capturamos la excepcion en caso de que se produzca un error,mostramos el mensaje de error y deshacemos la conexion
+			echo($PdoE->getMessage());
+			unset($db);
+		}
             ?>
 
 
