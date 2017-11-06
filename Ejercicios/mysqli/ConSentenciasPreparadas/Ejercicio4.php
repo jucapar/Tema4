@@ -7,7 +7,7 @@
  */
 
 include "../../config.php";
-$db = new mysqli(HOST,USER,PASSWORD,DATABASE);
+$db = new mysqli(HOST, USER, PASSWORD, DATABASE);
 
 //Comprobamos si ha habido algun error de conexion, en tal caso mostramos el codigo de error
 if ($db->connect_errno) {
@@ -63,7 +63,7 @@ if ($db->connect_errno) {
 
             <label for="DescDepartamento">Introduzca la descripcion del departamento:</label><br />
             <input type="text" name="DescDepartamento" value="<?php echo $DescDepartamento; ?>" class="<?PHP echo $estilosDepartamento; ?>"><br /><br />
-        <?PHP echo $errorDepartamento; ?>
+            <?PHP echo $errorDepartamento; ?>
 
             <input type="submit" name="enviar" value="Enviar">
 

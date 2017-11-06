@@ -26,3 +26,4 @@ nbdist/
 
 # End of https://www.gitignore.io/api/linux,netbeans
 
+/EjerciciosTema4/nbproject/private/

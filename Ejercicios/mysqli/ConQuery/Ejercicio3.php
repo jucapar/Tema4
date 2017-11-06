@@ -19,7 +19,7 @@
 
         // Establecemos una nueva conexion
         include "../../config.php";
-        $db = new mysqli(HOST,USER,PASSWORD,DATABASE);
+        $db = new mysqli(HOST, USER, PASSWORD, DATABASE);
 
         //Comprobamos si ha habido algun error de conexion, en tal caso mostramos el codigo de error
         if ($db->connect_errno) {
@@ -102,31 +102,31 @@
 
                     <label for="CodDepartamento">Codigo Departamento:</label><br />
                     <input type="text" name="CodDepartamento" value="<?php echo $departamento['CodDepartamento']; ?>" class="<?PHP echo $erroresEstilos['CodDepartamento']; ?>"><br /><br />
-                <?PHP echo $erroresCampos['CodDepartamento']; ?>
+                    <?PHP echo $erroresCampos['CodDepartamento']; ?>
 
                     <label for="DescDepartamento">Descripcion Departamento:</label><br />
                     <input type="text" name="DescDepartamento" value="<?php echo $departamento['DescDepartamento']; ?>" class="<?PHP echo $erroresEstilos['DescDepartamento']; ?>"><br /><br />
-                <?PHP echo $erroresCampos['DescDepartamento']; ?>
+                    <?PHP echo $erroresCampos['DescDepartamento']; ?>
 
                     <input type="submit" name="enviar" value="Enviar">
 
                 </form>
-                    <?PHP
-                } else {
-                    //Creamos la consulta
-                    $consulta = "INSERT INTO Departamento (CodDepartamento,DescDepartamento) VALUES (\"" . $departamento['CodDepartamento'] . "\",\"" . $departamento['DescDepartamento'] . "\")";
-                    //Ejecutamos la consulta
+                <?PHP
+            } else {
+                //Creamos la consulta
+                $consulta = "INSERT INTO Departamento (CodDepartamento,DescDepartamento) VALUES (\"" . $departamento['CodDepartamento'] . "\",\"" . $departamento['DescDepartamento'] . "\")";
+                //Ejecutamos la consulta
 
-                    if ($db->query($consulta)) {
-                        echo ("Departamento insertado con exito");
-                    } else {
-                        echo ("Error al insertar el departamento");
-                    }
+                if ($db->query($consulta)) {
+                    echo ("Departamento insertado con exito");
+                } else {
+                    echo ("Error al insertar el departamento");
                 }
-                //Cerramos la conexion
-                $db->close();
             }
-            ?>
+            //Cerramos la conexion
+            $db->close();
+        }
+        ?>
 
 
     </body>

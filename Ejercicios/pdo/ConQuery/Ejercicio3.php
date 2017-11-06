@@ -17,118 +17,116 @@
           Fecha de modificacion: 28-10-2017
          */
         //Información de la base de datos. Host y nombre de la BD
-       include "../../config.php";
+        include "../../config.php";
         try {
             //Creamos la conexion a la base de datos
             $db = new PDO(DATOSCONEXION, USER, PASSWORD);
             //Definición de los atributos para lanzar una excepcion si se produce un error
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        //Incluimos nuestra libreria de validacion
-        include "../../LibreriaValidacionFormularios.php";
+            //Incluimos nuestra libreria de validacion
+            include "../../LibreriaValidacionFormularios.php";
 
-        // Constantes para los valores maximos y minimos
-        define("MIN", 1);
-        define("MAX", 3);
+            // Constantes para los valores maximos y minimos
+            define("MIN", 1);
+            define("MAX", 3);
 
-        // Array de errores, utilizado para mostrar el mensaje de error correspondiente al valor devuelto por la funcion de validacion
-        $arrayErrores = array(" ", "No ha introducido ningun valor<br />", "El valor introducido no es valido<br />", "Tamaño minimo no valido<br />", "Tamaño maximo no valido<br />");
+            // Array de errores, utilizado para mostrar el mensaje de error correspondiente al valor devuelto por la funcion de validacion
+            $arrayErrores = array(" ", "No ha introducido ningun valor<br />", "El valor introducido no es valido<br />", "Tamaño minimo no valido<br />", "Tamaño maximo no valido<br />");
 
-        //Variable de control, utilizada para saber si algun campo introducido es erroneo
-        $error = false;
+            //Variable de control, utilizada para saber si algun campo introducido es erroneo
+            $error = false;
 
-        // Variable que guardará el valor devuelto por las funciones de validacion
-        $valida = 0;
-
-
-        // Inicializamos todos los arrays
-        $departamento = array(
-            'CodDepartamento' => '',
-            'DescDepartamento' => ''
-        );
+            // Variable que guardará el valor devuelto por las funciones de validacion
+            $valida = 0;
 
 
-        $erroresCampos = array(
-            'CodDepartamento' => '',
-            'DescDepartamento' => ''
-        );
+            // Inicializamos todos los arrays
+            $departamento = array(
+                'CodDepartamento' => '',
+                'DescDepartamento' => ''
+            );
 
-        $erroresEstilos = array(
-            'CodDepartamento' => '',
-            'DescDepartamento' => ''
-        );
 
-        if (filter_has_var(INPUT_POST, 'enviar')) {//Si hemos pulsado el boton de Enviar
-            //Comenzamos las validaciones de datos
-            //Ejecutamos la funcion de validacion y recogemos el valor devuelto
-            $valida = validarCadenaAlfanumerica($_POST['CodDepartamento'], MIN, MAX);
-            //Si el valor es distinto de 0 ha habido un error y procedemos a tratarlo
-            if ($valida != 0) {
-                //Asignamos el error producido al valor correspondiente en el array de errores
-                $erroresCampos['CodDepartamento'] = $arrayErrores[$valida];
-                //Activamos el class correspondiente para marcar el borde del campo en rojo
-                $erroresEstilos['CodDepartamento'] = "error";
-                //Como ha habido un error, la variable de control $error toma el valor true
-                $error = true;
-                //Si no ha habido ningun error, guardamos el valor enviado en el array de cuestionario
-            } else {
-                //Si no ha habido ningun error, guardamos el valor enviado en el array de cuestionario
-                $departamento['CodDepartamento'] = $_POST['CodDepartamento'];
+            $erroresCampos = array(
+                'CodDepartamento' => '',
+                'DescDepartamento' => ''
+            );
+
+            $erroresEstilos = array(
+                'CodDepartamento' => '',
+                'DescDepartamento' => ''
+            );
+
+            if (filter_has_var(INPUT_POST, 'enviar')) {//Si hemos pulsado el boton de Enviar
+                //Comenzamos las validaciones de datos
+                //Ejecutamos la funcion de validacion y recogemos el valor devuelto
+                $valida = validarCadenaAlfanumerica($_POST['CodDepartamento'], MIN, MAX);
+                //Si el valor es distinto de 0 ha habido un error y procedemos a tratarlo
+                if ($valida != 0) {
+                    //Asignamos el error producido al valor correspondiente en el array de errores
+                    $erroresCampos['CodDepartamento'] = $arrayErrores[$valida];
+                    //Activamos el class correspondiente para marcar el borde del campo en rojo
+                    $erroresEstilos['CodDepartamento'] = "error";
+                    //Como ha habido un error, la variable de control $error toma el valor true
+                    $error = true;
+                    //Si no ha habido ningun error, guardamos el valor enviado en el array de cuestionario
+                } else {
+                    //Si no ha habido ningun error, guardamos el valor enviado en el array de cuestionario
+                    $departamento['CodDepartamento'] = $_POST['CodDepartamento'];
+                }
+
+
+                //Ejecutamos la funcion de validacion y recogemos el valor devuelto
+                $valida = validarCadenaAlfanumerica($_POST['DescDepartamento']);
+                //Si el valor es distinto de 0 ha habido un error y procedemos a tratarlo
+                if ($valida != 0) {
+                    //Asignamos el error producido al valor correspondiente en el array de errores
+                    $erroresCampos['DescDepartamento'] = $arrayErrores[$valida];
+                    //Activamos el class correspondiente para marcar el borde del campo en rojo
+                    $erroresEstilos['DescDepartamento'] = "error";
+                    //Como ha habido un error, la variable de control $error toma el valor true
+                    $error = true;
+                    //Si no ha habido ningun error, guardamos el valor enviado en el array de departamento
+                } else {
+                    //Si no ha habido ningun error, guardamos el valor enviado en el array de departamento
+                    $departamento['DescDepartamento'] = $_POST['DescDepartamento'];
+                }
             }
+            //Si no hemos pulsado el boton, o ha habido un error en la validacion mostrarmos el formulario
+            if (!filter_has_var(INPUT_POST, 'enviar') || $error) {
+                ?>
+                <form action="<?PHP echo $_SERVER['PHP_SELF']; ?>" method="post">
 
+                    <label for="CodDepartamento">Codigo Departamento:</label><br />
+                    <input type="text" name="CodDepartamento" value="<?php echo $departamento['CodDepartamento']; ?>" class="<?PHP echo $erroresEstilos['CodDepartamento']; ?>"><br /><br />
+                    <?PHP echo $erroresCampos['CodDepartamento']; ?>
 
-            //Ejecutamos la funcion de validacion y recogemos el valor devuelto
-            $valida = validarCadenaAlfanumerica($_POST['DescDepartamento']);
-            //Si el valor es distinto de 0 ha habido un error y procedemos a tratarlo
-            if ($valida != 0) {
-                //Asignamos el error producido al valor correspondiente en el array de errores
-                $erroresCampos['DescDepartamento'] = $arrayErrores[$valida];
-                //Activamos el class correspondiente para marcar el borde del campo en rojo
-                $erroresEstilos['DescDepartamento'] = "error";
-                //Como ha habido un error, la variable de control $error toma el valor true
-                $error = true;
-                //Si no ha habido ningun error, guardamos el valor enviado en el array de departamento
-            } else {
-                //Si no ha habido ningun error, guardamos el valor enviado en el array de departamento
-                $departamento['DescDepartamento'] = $_POST['DescDepartamento'];
-            }
-        }
-        //Si no hemos pulsado el boton, o ha habido un error en la validacion mostrarmos el formulario
-        if (!filter_has_var(INPUT_POST, 'enviar') || $error) {
-            ?>
-            <form action="<?PHP echo $_SERVER['PHP_SELF']; ?>" method="post">
+                    <label for="DescDepartamento">Descripcion Departamento:</label><br />
+                    <input type="text" name="DescDepartamento" value="<?php echo $departamento['DescDepartamento']; ?>" class="<?PHP echo $erroresEstilos['DescDepartamento']; ?>"><br /><br />
+                    <?PHP echo $erroresCampos['DescDepartamento']; ?>
 
-                <label for="CodDepartamento">Codigo Departamento:</label><br />
-                <input type="text" name="CodDepartamento" value="<?php echo $departamento['CodDepartamento']; ?>" class="<?PHP echo $erroresEstilos['CodDepartamento']; ?>"><br /><br />
-            <?PHP echo $erroresCampos['CodDepartamento']; ?>
+                    <input type="submit" name="enviar" value="Enviar">
 
-                <label for="DescDepartamento">Descripcion Departamento:</label><br />
-                <input type="text" name="DescDepartamento" value="<?php echo $departamento['DescDepartamento']; ?>" class="<?PHP echo $erroresEstilos['DescDepartamento']; ?>"><br /><br />
-            <?PHP echo $erroresCampos['DescDepartamento']; ?>
-
-                <input type="submit" name="enviar" value="Enviar">
-
-            </form>
+                </form>
                 <?PHP
             } else {
                 //Creamos la consulta
                 $consulta = "INSERT INTO Departamento (CodDepartamento,DescDepartamento) VALUES (\"" . $departamento['CodDepartamento'] . "\",\"" . $departamento['DescDepartamento'] . "\")";
 
                 //Ejecutamos la consulta y guardamos el numero de registros insertados;
-				$n = $db->exec($consulta);
-				 if($n == 1){
-					echo "Registro insertado con exito";
-				 }
+                $n = $db->exec($consulta);
+                if ($n == 1) {
+                    echo "Registro insertado con exito";
+                }
             }
             unset($db);
-           
-			}  catch (PDOException $PdoE) {
-			//Capturamos la excepcion en caso de que se produzca un error,mostramos el mensaje de error y deshacemos la conexion
-			echo($PdoE->getMessage());
-			unset($db);
+        } catch (PDOException $PdoE) {
+            //Capturamos la excepcion en caso de que se produzca un error,mostramos el mensaje de error y deshacemos la conexion
+            echo($PdoE->getMessage());
+            unset($db);
+        }
+        ?>
 
-			}
-			 ?>
-        
 
 
     </body>

@@ -31,11 +31,10 @@ try {
     } else {
         $consulta = "SELECT * from Departamento"; //Consulta de todos los registros para generar la tabla
         $resultado = $db->query($consulta); //Se almacena el resultado de la consulta
-        
         //Cotenido del fichero XML
         $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><Departamentos></Departamentos>'); //creación del XML y su nodo raiz
         header("Content-type: text/xml");
-       while ($registro = $resultado->fetch(PDO::FETCH_OBJ)) {//Mientras haya resultados, se imprimen. FETCH avanza el puntero
+        while ($registro = $resultado->fetch(PDO::FETCH_OBJ)) {//Mientras haya resultados, se imprimen. FETCH avanza el puntero
             $departamento = $xml->addChild('Departamento'); //nuevo elemento hijo
             $departamento->addChild('CodDepartamento', $registro->CodDepartamento); //nuevo elemento hijo de departamento
             $departamento->addChild('DescDepartamento', $registro->DescDepartamento); //nuevo elemento hijo de departamento
@@ -44,12 +43,11 @@ try {
     }
     //Cerramos la conexion
     unset($db);
-	}catch (PDOException $PdoE) {
+} catch (PDOException $PdoE) {
     //Capturamos la excepcion en caso de que se produzca un error,mostramos el mensaje de error y deshacemos la conexion
     echo($PdoE->getMessage());
     unset($db);
-	}
-
+}
 ?>
 			
 

@@ -16,10 +16,10 @@ try {
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     //Si no se produce ningun error mostramos el mensaje de confirmacion
     echo ("Conexion establecida<br />");
-	echo "Version del cliente: ",$db->getAttribute(PDO::ATTR_CLIENT_VERSION),"<br>";
-    echo "Version del servidor: ",$db->getAttribute(PDO::ATTR_SERVER_VERSION),"<br>";
-    echo "Información del servidor: ",$db->getAttribute(PDO::ATTR_SERVER_INFO); 
-}catch (PDOException $PdoE) {
+    echo "Version del cliente: ", $db->getAttribute(PDO::ATTR_CLIENT_VERSION), "<br>";
+    echo "Version del servidor: ", $db->getAttribute(PDO::ATTR_SERVER_VERSION), "<br>";
+    echo "Información del servidor: ", $db->getAttribute(PDO::ATTR_SERVER_INFO);
+} catch (PDOException $PdoE) {
     //Capturamos la excepcion en caso de que se produzca un error,mostramos el mensaje de error y deshacemos la conexion
     echo($PdoE->getMessage());
     unset($db);

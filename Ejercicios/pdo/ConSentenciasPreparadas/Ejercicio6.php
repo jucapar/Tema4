@@ -11,7 +11,7 @@ include "../../config.php";
 
 try {
     //Creamos la conexion a la base de datos
-   $db = new PDO(DATOSCONEXION, USER, PASSWORD);
+    $db = new PDO(DATOSCONEXION, USER, PASSWORD);
     //Definición de los atributos para lanzar una excepcion si se produce un error
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     //Creamos una variable para guardar las filas afectadas
@@ -61,6 +61,5 @@ try {
     //Capturamos la excepcion en caso de que se produzca un error,mostramos el mensaje de error y deshacemos la conexion
     echo($PdoE->getMessage());
     unset($db);
-
 }
 ?>

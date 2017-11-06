@@ -19,7 +19,7 @@
 
         // Establecemos una nueva conexion
         include "../../config.php";
-        $db = new mysqli(HOST,USER,PASSWORD,DATABASE);
+        $db = new mysqli(HOST, USER, PASSWORD, DATABASE);
 
         //Comprobamos si ha habido algun error de conexion, en tal caso mostramos el codigo de error
         if ($db->connect_errno) {
@@ -102,42 +102,42 @@
 
                     <label for="CodDepartamento">Codigo Departamento:</label><br />
                     <input type="text" name="CodDepartamento" value="<?php echo $departamento['CodDepartamento']; ?>" class="<?PHP echo $erroresEstilos['CodDepartamento']; ?>"><br /><br />
-                <?PHP echo $erroresCampos['CodDepartamento']; ?>
+                    <?PHP echo $erroresCampos['CodDepartamento']; ?>
 
                     <label for="DescDepartamento">Descripcion Departamento:</label><br />
                     <input type="text" name="DescDepartamento" value="<?php echo $departamento['DescDepartamento']; ?>" class="<?PHP echo $erroresEstilos['DescDepartamento']; ?>"><br /><br />
-                <?PHP echo $erroresCampos['DescDepartamento']; ?>
+                    <?PHP echo $erroresCampos['DescDepartamento']; ?>
 
                     <input type="submit" name="enviar" value="Enviar">
 
                 </form>
-                    <?PHP
+                <?PHP
+            } else {
+                //Creamos la consulta
+                $consulta = "INSERT INTO Departamento (CodDepartamento,DescDepartamento) VALUES(?,?)";
+                //Preparamos la consulta
+                $sentencia = $db->prepare($consulta);
+                //Inyectamos los parametros del insert en el query
+                $sentencia->bind_param("ss", $departamento['CodDepartamento'], $departamento['DescDepartamento']);
+                //Ejecutamos la consulta
+                $sentencia->execute();
+                /*
+                 * Guardamos el numero de filas afectadas, si el numero de filas es 1 la insercion habrá sido correcta
+                 * si no, habrá habido algun error en la insercion  
+                 */
+                $n = $sentencia->affected_rows;
+                if ($n == 1) {
+                    echo ("Departamento insertado con exito");
                 } else {
-                    //Creamos la consulta
-                    $consulta = "INSERT INTO Departamento (CodDepartamento,DescDepartamento) VALUES(?,?)";
-                    //Preparamos la consulta
-                    $sentencia = $db->prepare($consulta);
-                    //Inyectamos los parametros del insert en el query
-                    $sentencia->bind_param("ss", $departamento['CodDepartamento'], $departamento['DescDepartamento']);
-                    //Ejecutamos la consulta
-                    $sentencia->execute();
-                    /*
-                     * Guardamos el numero de filas afectadas, si el numero de filas es 1 la insercion habrá sido correcta
-                     * si no, habrá habido algun error en la insercion  
-                     */
-                    $n = $sentencia->affected_rows;
-                    if ($n == 1) {
-                        echo ("Departamento insertado con exito");
-                    } else {
-                        echo ("Error al insertar el departamento");
-                    }
-                    //Cerramos la sentencia
-                    $sentencia->close();
+                    echo ("Error al insertar el departamento");
                 }
-                //Cerramos la conexion
-                $db->close();
+                //Cerramos la sentencia
+                $sentencia->close();
             }
-            ?>
+            //Cerramos la conexion
+            $db->close();
+        }
+        ?>
 
 
     </body>

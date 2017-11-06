@@ -21,7 +21,7 @@ try {
     //Guardamos el numero de registros obtenidos
     $numRegistros = $resultado->rowCount();
 
-	echo "Numero de registros: $numRegistros <br/>";
+    echo "Numero de registros: $numRegistros <br/>";
     while ($departamento = $resultado->fetch(PDO::FETCH_OBJ)) {//Mientras haya resultados, se muestran formateados. FETCH avanza el puntero
         echo "Codigo Departamento:" . $departamento->CodDepartamento . "<br />";
         echo "Descripcion Departamento:" . $departamento->DescDepartamento . "<br />";
@@ -34,6 +34,5 @@ try {
     //Capturamos la excepcion en caso de que se produzca un error,mostramos el mensaje de error y deshacemos la conexion
     echo($PdoE->getMessage());
     unset($db);
-
 }
 ?>
