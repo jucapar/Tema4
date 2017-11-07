@@ -2,7 +2,7 @@
 /*
   Autor: Juan Carlos Pastor Regueras
   Página web que toma datos (código y descripción) de la tabla Departamento y guarda en un fichero departamento.xml. (COPIA DE SEGURIDAD / EXPORTAR)
-  Fecha de modificacion: 28-10-2017
+  Fecha de modificacion: 6-11-2017
  */
 
 

@@ -59,7 +59,6 @@ try {
         ?>
         <form action="<?PHP echo $_SERVER['PHP_SELF']; ?>" method="post">
 
-
             <label for="DescDepartamento">Introduzca la descripcion del departamento:</label><br />
             <input type="text" name="DescDepartamento" value="<?php echo $DescDepartamento; ?>" class="<?PHP echo $estilosDepartamento; ?>"><br /><br />
             <?PHP echo $errorDepartamento; ?>
@@ -72,7 +71,7 @@ try {
         //Creamos la consulta
 
         $consulta = "SELECT * FROM Departamento WHERE DescDepartamento LIKE CONCAT('%',\"" . $DescDepartamento . "\",'%')";
-        //Preparamos la sentencia
+        //Ejecutamos la consulta y guardamos los resultados obtenidos
         $resultado = $db->query($consulta);
 
         while ($departamento = $resultado->fetch(PDO::FETCH_OBJ)) {//Mientras haya resultados, se muestran formateados. FETCH avanza el puntero
