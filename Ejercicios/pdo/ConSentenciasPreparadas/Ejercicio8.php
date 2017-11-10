@@ -4,11 +4,8 @@
   Página web que toma datos (código y descripción) de la tabla Departamento y guarda en un fichero departamento.xml. (COPIA DE SEGURIDAD / EXPORTAR)
   Fecha de modificacion: 28-10-2017
  */
-
-
 //Comprobamos si ha habido algun error de conexion, en tal caso mostramos el codigo de error
-include "../../config.php";
-
+include "../../configDesarrollo.php";
 try {
     //Creamos la conexion a la base de datos
     $db = new PDO(DATOSCONEXION, USER, PASSWORD);
@@ -50,5 +47,3 @@ try {
     unset($db);
 }
 ?>
-			
-

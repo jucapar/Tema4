@@ -7,7 +7,7 @@
  */
 
 //Información de la base de datos. Host y nombre de la BD
-include "../../config.php";
+include "../../configDesarrollo.php";
 try {
     //Creamos la conexion a la base de datos
     $db = new PDO(DATOSCONEXION, USER, PASSWORD);

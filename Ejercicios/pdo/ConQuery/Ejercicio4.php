@@ -6,7 +6,7 @@
   Fecha de modificacion: 29-10-2017
  */
 
-include "../../config.php";
+include "../../configDesarrollo.php";
 try {
     //Creamos la conexion a la base de datos
     $db = new PDO(DATOSCONEXION, USER, PASSWORD);
